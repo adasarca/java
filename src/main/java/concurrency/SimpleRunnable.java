@@ -1,17 +1,11 @@
-/**
- * Created by Ada.Sarca
- * Date: 10/26/2018
- */
 package concurrency;
 
-public class SimpleThread extends Thread {
+public class SimpleRunnable implements Runnable {
 
     private int seconds;
-    private boolean done;
 
-    public SimpleThread(int seconds) {
+    public SimpleRunnable(int seconds) {
         this.seconds = seconds;
-        this.done = false;
     }
 
     @Override
@@ -20,13 +14,16 @@ public class SimpleThread extends Thread {
 
         try {
             Thread.sleep(this.seconds * 1000);
-            this.done = true;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isDone() {
-        return done;
+    public static void main(String[] args) {
+        SimpleRunnable runnable = new SimpleRunnable(5);
+        runnable.run();
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 }
