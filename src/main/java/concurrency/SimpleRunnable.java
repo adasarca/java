@@ -10,11 +10,12 @@ public class SimpleRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Executing thread " + Thread.currentThread().getName());
+        System.out.println(String.format("Executing thread [%s] for %d seconds", Thread.currentThread().getName(), this.seconds));
 
         try {
             Thread.sleep(this.seconds * 1000);
         } catch (InterruptedException e) {
+            System.err.print("SimpleRunnable interrupted: ");
             e.printStackTrace();
         }
     }
