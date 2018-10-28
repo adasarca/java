@@ -15,7 +15,6 @@ public class SimpleRunnable implements Runnable {
         try {
             Thread.sleep(this.seconds * 1000);
         } catch (InterruptedException e) {
-            System.err.print("SimpleRunnable interrupted: ");
             e.printStackTrace();
         }
     }

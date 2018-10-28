@@ -22,7 +22,6 @@ public class SimpleThread extends Thread {
             Thread.sleep(this.seconds * 1000);
             this.done = true;
         } catch (InterruptedException e) {
-            System.err.print("SimpleThread interrupted: ");
             e.printStackTrace();
         }
     }
