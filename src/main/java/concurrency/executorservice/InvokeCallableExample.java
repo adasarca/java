@@ -2,7 +2,9 @@
  * Created by Ada.Sarca
  * Date: 10/29/2018
  */
-package concurrency;
+package concurrency.executorservice;
+
+import concurrency.SimpleCallable;
 
 import java.util.ArrayList;
 import java.util.List;

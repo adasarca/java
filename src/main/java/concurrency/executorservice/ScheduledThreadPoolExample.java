@@ -1,4 +1,7 @@
-package concurrency;
+package concurrency.executorservice;
+
+import concurrency.SimpleCallable;
+import concurrency.SimpleRunnable;
 
 import java.util.concurrent.*;
 
