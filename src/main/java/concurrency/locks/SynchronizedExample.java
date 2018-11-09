@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SynchronizedExample implements Runnable {
+
     private SynchronizedResource resource;
 
     public SynchronizedExample(SynchronizedResource resource) {
