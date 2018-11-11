@@ -6,21 +6,26 @@ package concurrency.locks;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockResource {
 
     private ReentrantLock countLock;
     private ReentrantLock tryCountLock;
+    private ReentrantReadWriteLock readWriteLock;
 
     private int count;
     private int tryCount;
+    private int readWriteCount;
 
     public LockResource() {
         this.countLock = new ReentrantLock();
         this.tryCountLock = new ReentrantLock();
+        this.readWriteLock = new ReentrantReadWriteLock();
 
         this.count = 0;
         this.tryCount = 0;
+        this.readWriteCount = 0;
     }
 
     public void increaseCount() {
@@ -57,11 +62,27 @@ public class LockResource {
         }
     }
 
+    public void increaseReadWriteCount() {
+        this.readWriteLock.writeLock().lock();
+        this.readWriteCount++;
+        this.readWriteLock.writeLock().unlock();
+    }
+
     public int getCount() {
         return count;
     }
 
     public int getTryCount() {
         return tryCount;
+    }
+
+    public int getReadWriteCount() {
+        int value;
+
+        this.readWriteLock.readLock().lock();
+        value = this.readWriteCount;
+        this.readWriteLock.readLock().unlock();
+
+        return value;
     }
 }

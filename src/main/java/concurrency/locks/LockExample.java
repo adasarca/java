@@ -20,6 +20,7 @@ public class LockExample implements Runnable {
         this.lockResource.increaseCount();
         this.lockResource.increaseCountTwice();
         this.lockResource.increaseTryCount();
+        this.lockResource.increaseReadWriteCount();
     }
 
     public static void main(String[] args) {
@@ -32,6 +33,7 @@ public class LockExample implements Runnable {
         executorService.shutdown();
 
         System.out.println("Count: " + lockResource.getCount());
-        System.out.println("Count: " + lockResource.getTryCount());
+        System.out.println("TryCount: " + lockResource.getTryCount());
+        System.out.println("ReadWriteCount: " + lockResource.getReadWriteCount());
     }
 }
