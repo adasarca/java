@@ -27,6 +27,14 @@ public class ConcurrentCollectionResource {
         return this.concurrentMap.get(key);
     }
 
+    public void addToConcurrentQueue(String element) {
+        this.concurrentQueue.add(element);
+    }
+
+    public String pollFromConcurrentQueue() {
+        return this.concurrentQueue.poll();
+    }
+
     public void addToBlockingQueue(String element) {
         this.blockingQueue.add(element);
     }
@@ -35,7 +43,7 @@ public class ConcurrentCollectionResource {
         try {
             return this.blockingQueue.poll(timeout, timeUnit);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("InterruptedException on poll(timeout): " + e.getMessage());
             return null;
         }
     }
@@ -47,13 +55,5 @@ public class ConcurrentCollectionResource {
             System.out.println("InterruptedException on take(): " + e.getMessage());
             return null;
         }
-    }
-
-    public void addToConcurrentQueue(String element) {
-        this.concurrentQueue.add(element);
-    }
-
-    public String pollFromConcurrentQueue() {
-        return this.concurrentQueue.poll();
     }
 }

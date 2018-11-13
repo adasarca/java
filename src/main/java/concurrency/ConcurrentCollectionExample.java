@@ -10,24 +10,24 @@ import java.util.concurrent.*;
 
 public class ConcurrentCollectionExample implements Callable<String> {
 
-    private int seconds;
+    private int mapDelay;
     private ConcurrentCollectionResource resource;
 
     public ConcurrentCollectionExample(int seconds, ConcurrentCollectionResource resource) {
-        this.seconds = seconds;
+        this.mapDelay = seconds;
         this.resource = resource;
     }
 
     @Override
     public String call() throws Exception {
         StringBuilder stringBuilder = new StringBuilder(
-                String.format("Thread [%s] with seconds [%d]: ", Thread.currentThread().getName(), this.seconds)
+                String.format("Thread [%s] with mapDelay [%d]: ", Thread.currentThread().getName(), this.mapDelay)
         );
 
         stringBuilder.append("\n    ");
         for (int i = 0; i < 3; i++) {
             try {
-                Thread.sleep(this.seconds * 1000);
+                Thread.sleep(this.mapDelay * 1000);
                 Integer value = this.resource.getMapEntry("map-" + i);
                 stringBuilder.append(String.format("map-%d [%d] ", i, value));
             } catch (InterruptedException e) {
@@ -38,7 +38,7 @@ public class ConcurrentCollectionExample implements Callable<String> {
         stringBuilder.append("\n    ");
         for (int i = 0; i < 3; i++) {
             try {
-                Thread.sleep(this.seconds * 1000);
+                Thread.sleep(1000);
                 String cQueue = this.resource.pollFromConcurrentQueue();
                 stringBuilder.append(String.format("cQueue-%d [%s] ", i, cQueue));
             } catch (InterruptedException e) {
@@ -48,16 +48,19 @@ public class ConcurrentCollectionExample implements Callable<String> {
 
         stringBuilder.append("\n    ");
         try {
-            Thread.sleep(this.seconds * 1000);
-            String bQueue1 = this.resource.pollFromBlockingQueue(1, TimeUnit.SECONDS);
+            Thread.sleep(1000);
+            String bQueue1 = this.resource.takeFromBlockingQueue();
             stringBuilder.append(String.format("bQueue-1 [%s] ", bQueue1));
 
-            Thread.sleep(this.seconds * 1000);
-            String bQueue2 = this.resource.takeFromBlockingQueue();
-            stringBuilder.append(String.format("bQueue-2 [%s] ", bQueue2));
+            for (int i = 1; i < 3; i++) {
+                Thread.sleep(1000);
+                String bQueue = this.resource.pollFromBlockingQueue(1, TimeUnit.SECONDS);
+                stringBuilder.append(String.format("bQueue-%d [%s] ", i, bQueue));
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return stringBuilder.toString();
     }
 
@@ -76,7 +79,7 @@ public class ConcurrentCollectionExample implements Callable<String> {
             consumers.add(new ConcurrentCollectionExample(i % 5, resource));
         }
         try {
-            List<Future<String>> futures = consumerService.invokeAll(consumers, 40, TimeUnit.SECONDS);
+            List<Future<String>> futures = consumerService.invokeAll(consumers);
             for (Future<String> future : futures) {
                 System.out.println(future.get());
             }
