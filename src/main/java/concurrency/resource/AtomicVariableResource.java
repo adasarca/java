@@ -1,4 +1,4 @@
-package concurrency.locks;
+package concurrency.resource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

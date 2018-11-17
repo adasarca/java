@@ -2,7 +2,7 @@
  * Created by Ada.Sarca
  * Date: 11/12/2018
  */
-package concurrency;
+package concurrency.resource;
 
 public class ConcurrentCollectionProducer implements Runnable {
 
