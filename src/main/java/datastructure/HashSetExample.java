@@ -2,7 +2,7 @@
  * Created by Ada.Sarca
  * Date: 11/15/2018
  */
-package datastructures;
+package datastructure;
 
 import java.util.HashSet;
 

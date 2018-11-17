@@ -2,7 +2,7 @@
  * Created by Ada.Sarca
  * getDate(): 11/15/2018
  */
-package datastructures;
+package datastructure;
 
 import java.util.Comparator;
 

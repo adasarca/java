@@ -2,7 +2,7 @@
  * Created by Ada.Sarca
  * Date: 11/14/2018
  */
-package datastructures;
+package datastructure;
 
 import java.util.HashMap;
 import java.util.Map;
