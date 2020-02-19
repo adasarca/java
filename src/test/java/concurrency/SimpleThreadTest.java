@@ -4,11 +4,15 @@
  */
 package concurrency;
 
-import static org.junit.Assert.*;
+
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertNull;
 
 public class SimpleThreadTest {
 
-    @org.junit.Test
+    @Test
     public void testRun() throws Exception {
         SimpleThread simpleThread = new SimpleThread(5);
         simpleThread.start();
